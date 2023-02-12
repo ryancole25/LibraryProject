@@ -1,7 +1,6 @@
 // TODO
 // Allow for the checkmark to be pressed later to categorize as read
 // Make a tracker to count pages read
-// Add a remove book to remove it from the library
 // Add edit functionality
 
 let myLibrary = [];
@@ -62,9 +61,13 @@ function addBooksToPage(myLibrary) {
     let pair = document.createElement("div");
     let label = document.createElement("label");
     let bookRead = document.createElement("input");
+    let close = document.createElement("img");
 
+    close.src = "close.svg";
+    close.className = "close";
+    close.id = `${i}`;
     pair.className = "pair";
-    label.textContent = "Read?";
+    label.innerHTML = "<b>Read?</b>";
     bookRead.type = "checkbox";
     if (myLibrary[i].read) {
       bookRead.checked = true;
@@ -72,17 +75,33 @@ function addBooksToPage(myLibrary) {
     pair.appendChild(label);
     pair.appendChild(bookRead);
 
-    bookTitle.textContent = `Title: ${myLibrary[i].title}`;
-    bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
-    bookPages.textContent = `Pages: ${myLibrary[i].pages}`;
+    bookTitle.innerHTML = `<b>Title:</b> ${myLibrary[i].title}`;
+    bookAuthor.innerHTML = `<b>Author:</b> ${myLibrary[i].author}`;
+    bookPages.innerHTML = `<b>Pages:</b> ${myLibrary[i].pages}`;
     // Add the book container to the bigger library container
     libraryContainer.appendChild(div);
     // Add the title, author, and pages to the book container
+    div.appendChild(close);
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
     div.appendChild(bookPages);
     div.appendChild(pair);
   }
+
+  // Add a new close button listener
+  let closeBtn = document.querySelectorAll(".close");
+
+  closeBtn.forEach((button) =>
+    button.addEventListener("click", function () {
+      deleteBook(button.id);
+    })
+  );
+}
+
+function deleteBook(index) {
+  myLibrary.splice(index, 1);
+  clearBooksOnPage();
+  addBooksToPage(myLibrary);
 }
 
 // Creates a form
@@ -100,5 +119,3 @@ function clearBooksOnPage() {
   let bookContainer = document.querySelectorAll(".book-container");
   bookContainer.forEach((container) => container.remove());
 }
-
-addBooksToPage(myLibrary);
