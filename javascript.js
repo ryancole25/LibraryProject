@@ -1,7 +1,7 @@
 // TODO
-// Allow for the checkmark to be pressed later to categorize as read
 // Make a tracker to count pages read
 // Add edit functionality
+// Add a sort button to sort by title
 
 let myLibrary = [];
 
@@ -69,6 +69,9 @@ function addBooksToPage(myLibrary) {
     pair.className = "pair";
     label.innerHTML = "<b>Read?</b>";
     bookRead.type = "checkbox";
+    bookRead.className = "read";
+    bookRead.id = `${i}`;
+
     if (myLibrary[i].read) {
       bookRead.checked = true;
     }
@@ -88,6 +91,15 @@ function addBooksToPage(myLibrary) {
     div.appendChild(pair);
   }
 
+  // Add a checkbox listener
+  let readButton = document.querySelectorAll(".read");
+
+  readButton.forEach((button) =>
+    button.addEventListener("click", function () {
+      changeReadStatus(button.id);
+    })
+  );
+
   // Add a new close button listener
   let closeBtn = document.querySelectorAll(".close");
 
@@ -102,6 +114,14 @@ function deleteBook(index) {
   myLibrary.splice(index, 1);
   clearBooksOnPage();
   addBooksToPage(myLibrary);
+}
+
+function changeReadStatus(index) {
+  if (myLibrary[index].read) {
+    myLibrary[index].read = false;
+  } else {
+    myLibrary[index].read = true;
+  }
 }
 
 // Creates a form

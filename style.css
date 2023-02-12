@@ -100,7 +100,7 @@
 }
 
 .book-container img {
-  position: relative;
+  justify-self: start;
   height: 30px;
   right: 150px;
 }
