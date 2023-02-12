@@ -1,7 +1,4 @@
 // TODO
-// Make the form appera when you press "new book"
-// Make the pages of the form only take numbers
-// Allow for actual form submission
 // Allow for the checkmark to be pressed later to categorize as read
 // Make a tracker to count pages read
 // Add a remove book to remove it from the library
@@ -13,7 +10,8 @@ const submitBtn = document.querySelector(".submit");
 const newBookBtn = document.querySelector(".new-book");
 
 // Check for form submission
-submitBtn.addEventListener("click", function () {
+submitBtn.addEventListener("click", function (event) {
+  event.preventDefault();
   addBookToLibrary();
 });
 
@@ -37,9 +35,17 @@ function addBookToLibrary() {
   let read = document.querySelector("#read");
 
   let newBook = new Book(title.value, author.value, pages.value, read.checked);
-  myLibrary.push(newBook);
-  clearBooksOnPage();
-  addBooksToPage(myLibrary);
+
+  if (title.value != "" && author.value != "" && pages.value != "") {
+    myLibrary.push(newBook);
+    clearBooksOnPage();
+    addBooksToPage(myLibrary);
+    // clear the inputs upon submission
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    read.checked = false;
+  }
 }
 
 // Adds books to the html of the page
@@ -82,7 +88,11 @@ function addBooksToPage(myLibrary) {
 // Creates a form
 function createForm() {
   const formContainer = document.querySelector(".form-container");
-  formContainer.style.display = "flex";
+  if (formContainer.style.display == "flex") {
+    formContainer.style.display = "none";
+  } else {
+    formContainer.style.display = "flex";
+  }
 }
 
 // Removes all the books before adding them again
