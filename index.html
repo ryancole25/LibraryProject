@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="mastercontainer">
+      <div class="bookshelf"><img src="bookshelf.png" alt=""></div>
       <div class="header">
         <h1>Library</h1>
         <button class="new-book">+ New Book</button>
@@ -39,10 +40,33 @@
             </form>
           </div>
         </div>
+        <div class="bookshelf"><img src="bookshelf.png" alt=""></div>
       </div>
       <div class="library-container">
-        <div class="book-container">
-          <img class="close" src="close.svg" alt="">
+        <div class="sort-container">
+          <div>Sort by:</div>
+          <form action="">
+            <div class="sort-form">
+              <div class="vert">
+                <label for="book-title">Title</label>
+                <input type="radio" id="book-title" name="sort" value="title">
+              </div>
+              <div class="vert">
+                <label for="book-author">Author</label>
+                <input type="radio" id="book-author" name="sort" value="author">
+              </div>
+              <div class="vert">
+                <label for="book-pages">Pages</label>
+                <input type="radio" id="book-pages" name="sort" value="pages">
+              </div>
+              <div class="vert">
+                <label for="book-read">Read</label>
+                <input type="radio" id="book-read" name="sort" value="read">
+              </div>
+              <div class="sort-button"><button>Sort</button></div>
+            </div>
+          </form>
+          
         </div>
       </div>
     </div>

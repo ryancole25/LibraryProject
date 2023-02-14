@@ -6,7 +6,8 @@
 
 .mastercontainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .header {
@@ -44,7 +45,29 @@
   height: 100vh;
   background-color: var(--grain-color);
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 1fr repeat(4, 4fr);
+}
+
+.sort-container {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.vert {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .book-container {
@@ -55,11 +78,12 @@
   grid-template-rows: 15px repeat(4, 1fr);
   justify-items: center;
   background-color: white;
+  border-radius: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form-container {
   display: none;
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
@@ -68,6 +92,7 @@
 .form {
   display: flex;
   gap: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .formpair {
@@ -99,8 +124,32 @@
   font-size: 20px;
 }
 
+.book-container:hover {
+  transform: scale(1.02);
+}
+
 .book-container img {
   justify-self: start;
   height: 30px;
   right: 150px;
+}
+
+.bookshelf img {
+  height: 200px;
+}
+
+.sort-button button {
+  background-color: var(--oxblood-color);
+  color: white;
+  border-radius: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border: none:
+}
+
+.sort-button button:hover {
+  background-color: #b44f62;
+}
+
+input {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

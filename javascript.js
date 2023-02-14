@@ -1,12 +1,12 @@
-// TODO
-// Make a tracker to count pages read
-// Add edit functionality
-// Add a sort button to sort by title
-
 let myLibrary = [];
 
 const submitBtn = document.querySelector(".submit");
 const newBookBtn = document.querySelector(".new-book");
+const sortBtn = document.querySelector(".sort-button");
+const titleSort = document.querySelector("#book-title");
+const authorSort = document.querySelector("#book-author");
+const pagesSort = document.querySelector("#book-pages");
+const readSort = document.querySelector("#book-read");
 
 // Check for form submission
 submitBtn.addEventListener("click", function (event) {
@@ -19,6 +19,27 @@ newBookBtn.addEventListener("click", function () {
   createForm();
 });
 
+sortBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  if (titleSort.checked) {
+    myLibrary = sortByTitle(myLibrary);
+    clearBooksOnPage();
+    addBooksToPage(myLibrary);
+  } else if (authorSort.checked) {
+    myLibrary = sortByAuthor(myLibrary);
+    clearBooksOnPage();
+    addBooksToPage(myLibrary);
+  } else if (pagesSort.checked) {
+    myLibrary = sortByPages(myLibrary);
+    clearBooksOnPage();
+    addBooksToPage(myLibrary);
+  } else if (readSort.checked) {
+    myLibrary = sortByRead(myLibrary);
+    clearBooksOnPage();
+    addBooksToPage(myLibrary);
+  }
+});
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -26,6 +47,55 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+// Sort button logic for sorting by title
+function sortByTitle(myLibrary) {
+  const sorted = myLibrary.sort(function (a, b) {
+    if (a.title > b.title) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  return sorted;
+}
+
+// Sort button logic for sorting by author
+function sortByAuthor(myLibrary) {
+  const sorted = myLibrary.sort(function (a, b) {
+    if (a.author > b.author) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  return sorted;
+}
+
+// Sort button logic for sorting by number of pages
+function sortByPages(myLibrary) {
+  const sorted = myLibrary.sort(function (a, b) {
+    if (a.pages >= b.pages) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  return sorted;
+}
+
+// Sort button logic for sorting by read
+function sortByRead(myLibrary) {
+  const sorted = myLibrary.sort(function (a, b) {
+    if (a.read && !b.read) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+  return sorted;
+}
+
+// Creates a new book
 function addBookToLibrary() {
   // Get the attributes from the submission form
   let title = document.querySelector("#title");
@@ -110,12 +180,14 @@ function addBooksToPage(myLibrary) {
   );
 }
 
+// Removes the book at the specified index from the page
 function deleteBook(index) {
   myLibrary.splice(index, 1);
   clearBooksOnPage();
   addBooksToPage(myLibrary);
 }
 
+// Toggles the read status in the array and on the page
 function changeReadStatus(index) {
   if (myLibrary[index].read) {
     myLibrary[index].read = false;
